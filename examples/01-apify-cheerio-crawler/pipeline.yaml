@@ -1,0 +1,15 @@
+# WebRobot equivalent of Apify js-crawlee-cheerio (CheerioCrawler + enqueueLinks + extract title)
+# Source: github.com/apify/actor-templates → templates/js-crawlee-cheerio (Apache-2.0)
+pipeline:
+  - stage: wget                      # CheerioCrawler = pure HTTP
+    args: ["https://crawlee.dev"]
+  - stage: wgetExplore               # = enqueueLinks(): follow links
+    args:
+      - "a"                          # link selector
+      - { depth: 1 }                 # crawl depth (~ maxRequestsPerCrawl)
+  - stage: extract
+    args:
+      - - { selector: "title", method: text, as: title }
+output:
+  format: parquet
+  mode: overwrite

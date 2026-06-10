@@ -1,0 +1,18 @@
+# WebRobot equivalent of Apify Playwright + Camoufox template (camoufox-js + geoip)
+# Source: github.com/apify/actor-templates -> templates/js-crawlee-playwright-camoufox (Apache-2.0)
+# Note: Camoufox + geo-IP proxy — which this Apify template sets up manually — is WebRobot's DEFAULT runtime.
+pipeline:
+  - stage: fetch                       # WebRobot's runtime IS Camoufox — no launcher/anti-fingerprint setup
+    args: ["https://apify.com"]
+  - stage: explore
+    args:
+      - "a[href*='apify.com']"
+      - { depth: 1 }
+  - stage: extract
+    args:
+      - - { selector: "title", method: text, as: title }
+output:
+  format: parquet
+  mode: overwrite
+# geo-IP (= camoufox geoip:true): set per-pipeline (metadata.runtime /
+# DATAIMPULSE_PROXY_COUNTRY / __cr.<country>) — built-in, no proxy plumbing.

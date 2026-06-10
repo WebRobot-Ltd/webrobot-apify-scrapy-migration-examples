@@ -53,11 +53,16 @@ Paste an **Apify actor**, a **Scrapy spider**, or a **Zyte** project URL → get
 | [`examples/`](examples/) | One file per ported scraper: **original** competitor code + **equivalent** WebRobot YAML + notes. |
 
 ### Examples
-| # | Source | Pattern |
-|---|---|---|
-| [01](examples/01-apify-cheerio-crawler.md) | **Apify** CheerioCrawler | HTTP crawl + follow links + extract |
-| [02](examples/02-scrapy-quotesbot.md) | **Scrapy** `quotesbot` | list of items + pagination |
-| [03](examples/03-zyte-auto-extract.md) | **Zyte** API auto-extract | ML product/article extract → `iextract` |
+Each folder has the original competitor snippet, the mapping README, and a real runnable [`pipeline.yaml`](examples/).
+
+| # | Source | Pattern | Also covers |
+|---|---|---|---|
+| [01](examples/01-apify-cheerio-crawler/) | **Apify** CheerioCrawler | HTTP crawl + follow links + extract | js/ts-crawlee-cheerio |
+| [02](examples/02-scrapy-quotesbot/) | **Scrapy** `quotesbot` | list of items + pagination | toscrape-css/xpath, python-scrapy |
+| [03](examples/03-zyte-auto-extract/) | **Zyte** API auto-extract | ML product/article → `iextract` | zyte-api product/article |
+| [04](examples/04-apify-playwright-browser/) | **Apify** PlaywrightCrawler | browser, list→detail | puppeteer, selenium, python-playwright |
+| [05](examples/05-apify-playwright-camoufox/) | **Apify** Playwright + **Camoufox** | browser + geo-IP (= WebRobot's default runtime) | camoufox-js templates |
+| [06](examples/06-apify-beautifulsoup-parsel/) | **Apify** Python BeautifulSoup/Parsel | HTTP parse | crawlee-beautifulsoup, parsel, bootstrap-cheerio |
 
 ---
 

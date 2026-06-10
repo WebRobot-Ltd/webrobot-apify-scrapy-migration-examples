@@ -1,0 +1,13 @@
+# WebRobot equivalent of Apify python-beautifulsoup template (HTTP + BeautifulSoup)
+# Source: github.com/apify/actor-templates -> templates/python-beautifulsoup (Apache-2.0)
+# Also covers: python-crawlee-beautifulsoup, python-crawlee-parsel, js/ts-bootstrap-cheerio-crawler
+pipeline:
+  - stage: wget                        # BeautifulSoup/Parsel = pure HTTP, no browser
+    args: ["https://apify.com"]
+  - stage: extract
+    args:
+      - - { selector: "title", method: text, as: title }
+        - { selector: "h1",    method: text, as: heading }
+output:
+  format: parquet
+  mode: overwrite

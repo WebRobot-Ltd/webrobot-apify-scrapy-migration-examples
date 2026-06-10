@@ -1,0 +1,14 @@
+# WebRobot equivalent of Zyte API auto-extract (product): fetch (browserHtml) + iextract
+# Source pattern: python-zyte-api / scrapy-zyte-api  {"url":..., "product": true}
+pipeline:
+  - stage: fetch                       # browserHtml render (Camoufox); built-in proxy + geo
+    args: ["https://example.com/product/123"]
+  - stage: iextract                    # = Zyte product auto-extract (LLM-native)
+    args:
+      - prompt: >
+          Extract the product as fields: name, price (number),
+          currency, sku, availability, brand.
+        as: product
+output:
+  format: parquet
+  mode: overwrite

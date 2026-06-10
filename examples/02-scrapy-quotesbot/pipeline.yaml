@@ -1,0 +1,18 @@
+# WebRobot equivalent of Scrapy quotesbot (toscrape-css spider: list of quotes + pagination)
+# Source: github.com/scrapy/quotesbot → quotesbot/spiders/toscrape-css.py (BSD)
+pipeline:
+  - stage: wget
+    args: ["http://quotes.toscrape.com/"]
+  - stage: wgetExplore                 # = yield Request(next_page): pagination
+    args:
+      - "li.next > a"                   # the "next" link
+      - { depth: 10 }                   # pages to follow
+  - stage: flatSelect                   # = for quote in response.css("div.quote")
+    args:
+      - "div.quote"                     # one row per quote
+      - - { selector: "span.text",       method: text, as: text }
+        - { selector: "small.author",    method: text, as: author }
+        - { selector: "div.tags > a.tag", method: text, as: tags }
+output:
+  format: parquet
+  mode: overwrite

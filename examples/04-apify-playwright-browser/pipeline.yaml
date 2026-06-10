@@ -1,0 +1,16 @@
+# WebRobot equivalent of Apify PlaywrightCrawler (browser crawl, list->detail, title)
+# Source: github.com/apify/actor-templates -> templates/js-crawlee-playwright-chrome (Apache-2.0)
+# Also covers: puppeteer-chrome, python-crawlee-playwright, python-playwright, python-selenium
+pipeline:
+  - stage: fetch                       # PlaywrightCrawler = browser render (Camoufox)
+    args: ["https://apify.com"]
+  - stage: explore                     # = enqueueLinks({globs}): follow matching links
+    args:
+      - "a[href*='apify.com']"
+      - { depth: 1 }
+  - stage: extract                     # = detail handler: page.title()
+    args:
+      - - { selector: "title", method: text, as: title }
+output:
+  format: parquet
+  mode: overwrite
