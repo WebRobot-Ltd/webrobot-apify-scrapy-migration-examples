@@ -4,6 +4,8 @@
 
 **Side-by-side proof that any competitor scraper has a shorter, declarative [WebRobot](https://webrobot.eu) equivalent — and a demo agent that migrates it for you.**
 
+_WebRobot is the **first ETL built to be consumed by AI agents** — declarative pipelines an agent can author, run, and read back. This migration capability is the proof._
+
 </div>
 
 ---
@@ -54,6 +56,7 @@ Apify / Scrapy / Zyte stop at **acquisition**: they hand you raw items, then *yo
 - **Advanced analytics built in** — aggregate / score / enrich on Spark; LLM enrichment via `webrobot_llm`; RAG stages (`rag_ingest` / `rag_query`).
 - **Vertical use cases, shipped** — price comparison, real-estate arbitrage, product catalogs, comment/article sentiment, odds/sure-bet, and a closed loop with a distributed trading engine.
 - **One stack** — scrape → transform → analyze → serve, all on Spark / BYOC, with no glue between five different tools.
+- **Agent-native** — the **first ETL designed to be consumed by AI agents**: declarative YAML + MCP tools mean an agent can author a pipeline, run it, and read the result back (exactly how the migration capability works). Competitors are code libraries/platforms a *human* drives.
 
 > The migration isn't tool-for-tool. You replace the scraper **and** the ETL + analytics layer you'd otherwise build downstream of it.
 
