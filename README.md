@@ -10,7 +10,7 @@
 
 ## 🤖 The demo agent migrates your scraper — automatically
 
-The **WebRobot demo chatbot agent** (try it at [portal.webrobot.eu](https://portal.webrobot.eu)) ships with **built-in migration capabilities**. You don't port by hand:
+The **WebRobot demo chatbot agent** — **[try the conversational demo → portal.webrobot.eu/chat.html](https://portal.webrobot.eu/chat.html)** *(live soon)* — ships with **built-in migration capabilities**. You don't port by hand:
 
 > **You:** "Migrate this Apify actor to WebRobot: `github.com/apify/…`"
 >
@@ -45,6 +45,17 @@ The closest thing to WebRobot isn't a hosted scraping marketplace — it's **run
 **Same result, a fraction of the code, on your own infrastructure, AI-native.**
 
 ---
+
+## 📊 Beyond the scraper — a complete ETL + analytics stack, in one place
+
+Apify / Scrapy / Zyte stop at **acquisition**: they hand you raw items, then *you* bolt on a warehouse, transforms, analytics and BI. WebRobot is a **complete ETL** — scraping is just stage one of the same pipeline:
+
+- **Transform in-pipeline** — `sql_query`, `python_extensions` (row/dataframe UDFs), dedup, joins. No separate ETL tool.
+- **Advanced analytics built in** — aggregate / score / enrich on Spark; LLM enrichment via `webrobot_llm`; RAG stages (`rag_ingest` / `rag_query`).
+- **Vertical use cases, shipped** — price comparison, real-estate arbitrage, product catalogs, comment/article sentiment, odds/sure-bet, and a closed loop with a distributed trading engine.
+- **One stack** — scrape → transform → analyze → serve, all on Spark / BYOC, with no glue between five different tools.
+
+> The migration isn't tool-for-tool. You replace the scraper **and** the ETL + analytics layer you'd otherwise build downstream of it.
 
 ## What we port from
 
