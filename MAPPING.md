@@ -5,7 +5,10 @@ The construct-by-construct translation table behind every example. Also loaded i
 ## WebRobot target stages (quick reference)
 - **`wget(url)`** — pure HTTP, static pages / APIs (no browser).
 - **`fetch(url, trace?)`** — browser (Camoufox); `trace` = actions: `visit`, `fill`, `click`, `hover`, `select`. Use for JS-rendered pages, search, login, age-gate.
-- **`wgetExplore` / `explore` / `visitExplore`** — follow links / pagination (HTTP / browser); takes a link selector + `depth`.
+- **link-following / pagination** — pick by mode (takes a link selector + `depth`):
+  - **`wgetExplore`** — **static / HTTP** (no browser).
+  - **`visitExplore`** — **browser** (Camoufox), just visits each followed link — **no trace required**.
+  - **`explore`** — browser, **requires a `trace`** — use only when you must *replay actions* per page (click "load more", paginate via a button, etc.).
 - **`join` / `wgetJoin` / `visitJoin`** — fan out: per row, fetch a detail URL and merge.
 - **`flatSelect(segment, [fields])`** — repeating rows (list items) → one output row each.
 - **`extract([fields])`** — fields from the current page.
@@ -23,7 +26,8 @@ The construct-by-construct translation table behind every example. Also loaded i
 |---|---|
 | `CheerioCrawler` (HTTP) | `wget` |
 | `PlaywrightCrawler` / `PuppeteerCrawler` / `web-scraper` (browser) | `fetch(url, trace)` |
-| `enqueueLinks()` / `requestQueue.addRequests` | `wgetExplore` / `explore` (+`depth`) |
+| `enqueueLinks()` — Cheerio (HTTP) | `wgetExplore` (+`depth`) |
+| `enqueueLinks()` — Playwright/Puppeteer (browser) | `visitExplore` (+`depth`); `explore` only if replaying actions |
 | router `addHandler('detail')` (list→detail) | list `flatSelect` → `join`/`explore` → detail `extract` |
 | `$('sel').text()` | `method: text` |
 | `$('sel').attr('href')` | `method: href` (absolute) |
@@ -44,8 +48,8 @@ The construct-by-construct translation table behind every example. Also loaded i
 | `response.css('a::attr(href)').get()` | `method: href` |
 | `response.css('sel::attr(X)')` | `method: attr:X` |
 | `response.xpath('…')` | `selector` (prefer CSS; xpath where supported) |
-| `response.follow(next)` / `yield Request(url)` | `wgetExplore` / `explore` (pagination) |
-| `CrawlSpider` `Rule(LinkExtractor(...))` | `wgetExplore`/`explore` with the link selector |
+| `response.follow(next)` / `yield Request(url)` | `wgetExplore` (HTTP); `visitExplore` if scrapy-playwright |
+| `CrawlSpider` `Rule(LinkExtractor(...))` | `wgetExplore` with the link selector |
 | `yield {item}` / `Item` / `ItemLoader` | `output` + `python_extensions` (`row_transform`) |
 | `FormRequest` (login/search) | `fetch` with `trace` (fill + submit actions) |
 | item pipelines (clean/dedup/store) | `sql_query` / `python_extensions` / `rag_dedup` |

@@ -4,7 +4,7 @@
 pipeline:
   - stage: fetch                       # WebRobot's runtime IS Camoufox — no launcher/anti-fingerprint setup
     args: ["https://apify.com"]
-  - stage: explore
+  - stage: visitExplore                # browser link-follow (no trace); use wgetExplore if static, explore if a trace is needed
     args:
       - "a[href*='apify.com']"
       - { depth: 1 }

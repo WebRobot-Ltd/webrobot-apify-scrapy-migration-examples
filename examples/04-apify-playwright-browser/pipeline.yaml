@@ -4,7 +4,7 @@
 pipeline:
   - stage: fetch                       # PlaywrightCrawler = browser render (Camoufox)
     args: ["https://apify.com"]
-  - stage: explore                     # = enqueueLinks({globs}): follow matching links
+  - stage: visitExplore                # = enqueueLinks({globs}): browser link-follow (no trace needed)
     args:
       - "a[href*='apify.com']"
       - { depth: 1 }

@@ -33,7 +33,7 @@ Plus the camoufox-js dep, proxy wiring, and the Apify platform.
 pipeline:
   - stage: fetch                       # WebRobot's runtime IS Camoufox — no setup
     args: ["https://apify.com"]
-  - stage: explore
+  - stage: visitExplore                # browser link-follow (no trace)
     args: ["a[href*='apify.com']", { depth: 1 }]
   - stage: extract
     args:
@@ -49,6 +49,6 @@ output: { format: parquet, mode: overwrite }
 | `camoufox-js` + `firefox` launcher | **`fetch`** (Camoufox is the engine) |
 | `geoip: true` + `proxyConfiguration.newUrl()` | built-in DataImpulse proxy + per-session geo (`__cr.<country>`) |
 | anti-fingerprint setup | default |
-| `enqueueLinks` / detail handler | `explore` + `extract` |
+| `enqueueLinks` / detail handler | `visitExplore` + `extract` (browser link-follow, no trace) |
 
 **Apify's "advanced" Camoufox template = WebRobot's zero-config default.**

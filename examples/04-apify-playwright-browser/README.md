@@ -27,7 +27,7 @@ router.addHandler('detail', async ({ request, page, pushData }) => {
 pipeline:
   - stage: fetch                       # PlaywrightCrawler = browser render (Camoufox)
     args: ["https://apify.com"]
-  - stage: explore                     # = enqueueLinks({globs}): follow matching links
+  - stage: visitExplore                # = enqueueLinks({globs}): browser link-follow (no trace needed)
     args:
       - "a[href*='apify.com']"
       - { depth: 1 }
@@ -41,9 +41,11 @@ output: { format: parquet, mode: overwrite }
 | Crawlee Playwright | WebRobot |
 |---|---|
 | `PlaywrightCrawler` / Puppeteer / Selenium | `fetch` (browser, Camoufox) |
-| `enqueueLinks({globs,label})` | `explore` (link selector + depth) |
+| `enqueueLinks({globs,label})` | `visitExplore` (browser link-follow; no trace) |
 | `addHandler('detail', … page.title())` | `extract` on the followed pages |
-| `page.click/fill` interactions | `fetch` `trace` actions (click/fill/hover) |
+| `page.click/fill` before extracting | `fetch`/`explore` with a `trace` (click/fill/hover actions) |
+
+> **Stage note:** browser link-following = **`visitExplore`** (just visits each followed link). Use **`explore`** only when you need to *replay actions* per page (it requires a `trace`). HTTP link-following (no browser) = `wgetExplore`.
 | `proxyConfiguration` | built-in proxy + geo |
 
 **A Playwright actor + Crawlee runtime → a `fetch` stage on WebRobot's managed browser farm.**
