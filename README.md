@@ -20,6 +20,18 @@ Paste an **Apify actor**, a **Scrapy spider**, or a **Zyte** project URL → get
 
 ---
 
+## 🔒 The real positioning: your own **private crawler fleet** (BYOC)
+
+The closest thing to WebRobot isn't a hosted scraping marketplace — it's **running your own private crawlers**, but without building and babysitting the infrastructure. With **BYOC (Bring Your Own Cloud)** the whole pipeline runs on **your** account:
+
+- **Your cloud, your machines** — Spark + Camoufox browser workers are provisioned on *your* Hetzner / AWS / etc., scaled elastically up and down per job.
+- **Your data never leaves your infra** — results land in *your* storage; no third-party platform sees or holds the data.
+- **No per-request / per-extraction fees** — unlike Apify compute units or Zyte API calls. You pay your own cloud, nothing per page or per extraction.
+- **Your proxies, your models** — bring your own proxy pool and your own LLM (via `cloud_credentials`) for `iextract` / `webrobot_llm`. Nothing is sent to a vendor's model by default.
+- **Declarative + managed, not DIY** — you get a private crawler's control and economics, but you author in **YAML** on a managed browser farm with built-in anti-block and captcha HITL — none of the Scrapy self-hosting toil.
+
+> Migrating off Apify/Zyte isn't just shorter code — it's **bringing your crawling in-house** (data sovereignty + cloud economics) **without** rebuilding the platform. That's the migration these examples are really about.
+
 ## Why migrate
 
 | | Apify | Scrapy | Zyte | **WebRobot** |

@@ -16,6 +16,7 @@ The construct-by-construct translation table behind every example. Also loaded i
 - **`sql_query`** — SQL over the dataframe.
 - **`python_extensions`** — `row_transform` (per-row UDF) · `dataframe_transform` (driver, Py4J) · `sql_query`; helper **`webrobot_llm(prompt, …)`** for safe LLM calls in the sandbox.
 - **`iextract`** — LLM-native intelligent extraction (article/product/fields).
+- **`intelligentExplore` / `intelligentJoin`** — LLM-guided navigation (infer pagination/links) / follow-to-detail, no hand selectors. Both **default to Visit (browser)**; for static/HTTP set **`useWget: true`** on `intelligentJoin` (and pass a Wget `traceAction` to `intelligentExplore`).
 - **`load_csv` / `metadata.params`** — input dataset / `$col` sweep over many URLs/queries.
 - **`output`** — parquet/csv → WebRobot dataset.
 

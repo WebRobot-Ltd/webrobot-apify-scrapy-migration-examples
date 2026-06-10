@@ -1,12 +1,21 @@
 # WebRobot equivalent of Zyte zyte-spider-templates "ecommerce" (auto-discover products + auto-extract)
 # Source: github.com/zytedata/zyte-spider-templates -> zyte_spider_templates/spiders/ecommerce.py
-# Zyte: ProductNavigation heuristics + Product auto-extract via Zyte API  ->  WebRobot: intelligentExplore + iextract
+# Zyte: ProductNavigation heuristics + Product auto-extract  ->  WebRobot: intelligentExplore + intelligentJoin + iextract
+#
+# Acquisition mode is a STAGE PARAMETER, not a separate stage:
+#   - intelligentExplore: defaults to Visit (browser); pass a Wget traceAction (3rd arg) for static/HTTP.
+#   - intelligentJoin:    defaults to Visit (browser); set `useWget: true` for static/HTTP (faster, no browser).
 pipeline:
-  - stage: fetch                       # browser render + built-in proxy/geo
+  - stage: wget                        # static start (books.toscrape). For JS shops use: fetch
     args: ["https://books.toscrape.com/"]
-  - stage: intelligentExplore          # = Zyte ProductNavigation: auto-find product/category/next pages
+  - stage: intelligentExplore          # = Zyte ProductNavigation: LLM-infers pagination / category / product links
     args:
-      - { goal: "product detail pages", depth: 2 }
+      - "listing pages and product links"    # natural-language goal
+      - 2                                     # depth (visitLimit)
+  - stage: intelligentJoin             # follow inferred product links to their detail pages
+    args:
+      - "product detail page"
+      - { useWget: true }              # HTTP, no browser — books.toscrape is static (default is Visit/browser)
   - stage: iextract                    # = Zyte Product auto-extract (LLM-native)
     args:
       - prompt: >
