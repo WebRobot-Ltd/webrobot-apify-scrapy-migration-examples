@@ -1,0 +1,18 @@
+# WebRobot equivalent of Zyte zyte-spider-templates "ecommerce" (auto-discover products + auto-extract)
+# Source: github.com/zytedata/zyte-spider-templates -> zyte_spider_templates/spiders/ecommerce.py
+# Zyte: ProductNavigation heuristics + Product auto-extract via Zyte API  ->  WebRobot: intelligentExplore + iextract
+pipeline:
+  - stage: fetch                       # browser render + built-in proxy/geo
+    args: ["https://books.toscrape.com/"]
+  - stage: intelligentExplore          # = Zyte ProductNavigation: auto-find product/category/next pages
+    args:
+      - { goal: "product detail pages", depth: 2 }
+  - stage: iextract                    # = Zyte Product auto-extract (LLM-native)
+    args:
+      - prompt: >
+          Extract the product: name, price (number), currency, sku,
+          availability, description, brand, breadcrumbs.
+        as: product
+output:
+  format: parquet
+  mode: overwrite

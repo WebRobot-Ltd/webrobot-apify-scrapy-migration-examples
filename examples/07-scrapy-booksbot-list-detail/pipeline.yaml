@@ -1,0 +1,22 @@
+# WebRobot equivalent of Scrapy booksbot (list -> detail: paginate, follow product links, extract on detail)
+# Source: github.com/scrapy/booksbot -> books/spiders/books.py (books.toscrape.com)
+pipeline:
+  - stage: wget
+    args: ["http://books.toscrape.com/"]
+  - stage: wgetExplore                 # pagination: all listing pages (li.next)
+    args:
+      - "li.next > a"
+      - { depth: 50 }
+  - stage: wgetExplore                 # follow each product link -> its detail page
+    args:
+      - "article.product_pod > h3 > a"
+      - { depth: 1 }
+  - stage: extract                     # = parse_book_page: detail fields
+    args:
+      - - { selector: "div.product_main h1",                 method: text, as: title }
+        - { selector: "p.price_color",                       method: text, as: price }
+        - { selector: "#product_description ~ p",            method: text, as: description }
+        - { selector: "ul.breadcrumb li:nth-last-child(2) a", method: text, as: category }
+output:
+  format: parquet
+  mode: overwrite

@@ -63,6 +63,8 @@ Each folder has the original competitor snippet, the mapping README, and a real 
 | [04](examples/04-apify-playwright-browser/) | **Apify** PlaywrightCrawler | browser, list→detail | puppeteer, selenium, python-playwright |
 | [05](examples/05-apify-playwright-camoufox/) | **Apify** Playwright + **Camoufox** | browser + geo-IP (= WebRobot's default runtime) | camoufox-js templates |
 | [06](examples/06-apify-beautifulsoup-parsel/) | **Apify** Python BeautifulSoup/Parsel | HTTP parse | crawlee-beautifulsoup, parsel, bootstrap-cheerio |
+| [07](examples/07-scrapy-booksbot-list-detail/) | **Scrapy** `booksbot` | **list → detail** (paginate, follow product, extract on detail) | e-commerce listings |
+| [08](examples/08-zyte-spider-templates-ecommerce/) | **Zyte** `zyte-spider-templates` | auto-discover + auto-extract → `intelligentExplore` + `iextract` | zyte ecommerce/article templates |
 
 ---
 
