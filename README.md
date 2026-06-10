@@ -52,6 +52,13 @@ Paste an **Apify actor**, a **Scrapy spider**, or a **Zyte** project URL → get
 | [`agent-migration-feature.md`](agent-migration-feature.md) | How the demo agent performs migrations self-serve (GitHub MCP access + workflow + the profile `mcp_servers` entry). |
 | [`examples/`](examples/) | One file per ported scraper: **original** competitor code + **equivalent** WebRobot YAML + notes. |
 
+### Examples
+| # | Source | Pattern |
+|---|---|---|
+| [01](examples/01-apify-cheerio-crawler.md) | **Apify** CheerioCrawler | HTTP crawl + follow links + extract |
+| [02](examples/02-scrapy-quotesbot.md) | **Scrapy** `quotesbot` | list of items + pagination |
+| [03](examples/03-zyte-auto-extract.md) | **Zyte** API auto-extract | ML product/article extract → `iextract` |
+
 ---
 
 ## How a migration reads (preview)
